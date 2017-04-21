@@ -94,7 +94,10 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        
+        /* commenting the player method as this has not been initialized yet*/
+        
+//        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -151,7 +154,8 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        player.render();
+        /* Commenting the methods of player obeject*/
+//        player.render();
     }
 
     /* This function does nothing but it could have been a good place to
