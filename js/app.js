@@ -21,6 +21,9 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Initializing the "allEnemies" array. It will consist of all the enemies objects.
+var allEnemies = [];
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
