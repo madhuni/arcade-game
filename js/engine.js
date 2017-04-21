@@ -154,8 +154,8 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        /* Commenting the methods of player obeject*/
-//        player.render();
+        /* calling the render method of the player object*/
+        player.render();
     }
 
     /* This function does nothing but it could have been a good place to
