@@ -1,0 +1,7 @@
+image size is : 101*171
+
+x increment will be of 101.
+y increment will be of 85.
+
+--> for the 2nd row of the game board the y increment should be 60px
+--> for the 1st row of the game board the y increment should be -20px
