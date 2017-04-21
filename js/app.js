@@ -1,11 +1,11 @@
-// Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+/*********************** Enemies *****************************/
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+var Enemy = function(x, y, speed) {
+    
     this.sprite = 'images/enemy-bug.png';
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -23,6 +23,13 @@ Enemy.prototype.render = function() {
 
 // Initializing the "allEnemies" array. It will consist of all the enemies objects.
 var allEnemies = [];
+
+allEnemies.push(new Enemy(0, 60));
+allEnemies.push(new Enemy(101, 145));
+allEnemies.push(new Enemy(202, 230));
+
+
+/*********************** Player ******************************/
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -45,5 +52,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+//    player.handleInput(allowedKeys[e.keyCode]);
 });
