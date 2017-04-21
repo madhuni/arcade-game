@@ -35,6 +35,18 @@ allEnemies.push(new Enemy(202, 230));
 // This class requires an update(), render() and
 // a handleInput() method.
 
+var Player = function(speed) {
+    this.sprite = 'images/char-boy.png';
+    this.x = 202;
+    this.y = 315;
+};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+/* creating the 'player' object */
+var player = new Player();
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
