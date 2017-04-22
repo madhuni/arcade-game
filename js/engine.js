@@ -97,7 +97,7 @@ var Engine = (function(global) {
         
         /* commenting the player method as this has not been initialized yet*/
         
-//        player.update();
+        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
