@@ -50,9 +50,47 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.update = function() {
-
+    
+    /* Cheking player should not move out screen */
+    
+    if (this.x > 404) {
+        this.x = 404;
+    }
+    
+    if (this.x < 0) {
+        this.x = 0;
+    }
+    
+    if (this.y > 400) {
+        this.y = 400;
+    }
+    
+    if( this.y < 60) {
+        this.reset();
+    }
 };
 
+Player.prototype.handleInput = function(key) {
+    
+    if (key === 'left') {
+        this.x = this.x - 101;
+    }
+    if (key === 'right') {
+        this.x = this.x + 101;
+    }
+    if (key === 'up') {
+        this.y = this.y - 85;
+    }
+    if (key === 'down') {
+        this.y = this.y + 85;
+    } 
+};
+
+Player.prototype.reset = function() {
+    
+    this.x = 202;
+    this.y = 315;
+};
 /* creating the 'player' object */
 var player = new Player();
 
@@ -72,5 +110,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-//    player.handleInput(allowedKeys[e.keyCode]);
+    player.handleInput(allowedKeys[e.keyCode]);
 });
