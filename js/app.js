@@ -1,3 +1,11 @@
+function drawBox(x, y, width, height, color) {
+    ctx.beginPath();
+    ctx.rect(x, y, width, height);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = color;
+    ctx.stroke();
+};
+
 /*********************** Enemies *****************************/
 
 var Enemy = function(x, y, speed) {
@@ -23,6 +31,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    drawBox(this.x, this.y + 77, 100, 67, "yellow");
 };
 
 // Initializing the "allEnemies" array. It will consist of all the enemies objects.
@@ -47,6 +56,7 @@ var Player = function(speed) {
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    drawBox(this.x+17, this.y + 63, 67, 75, "blue");
 };
 
 Player.prototype.update = function() {
@@ -91,6 +101,15 @@ Player.prototype.reset = function() {
     this.x = 202;
     this.y = 315;
 };
+
+Player.prototype.checkCollisionsBugs = function() {
+    for(var i =0; i< allEnemies.length; i++) {
+        var enemy = allEnemies[i];
+        
+        
+    }
+};
+
 /* creating the 'player' object */
 var player = new Player();
 
