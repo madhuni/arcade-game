@@ -47,17 +47,6 @@ Enemy.prototype.randomSpeed = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
-// Initializing the "allEnemies" array. It will consist of all the enemies objects.
-var allEnemies = [];
-
-allEnemies.push(new Enemy(-300, 60));
-allEnemies.push(new Enemy(-200, 145));
-allEnemies.push(new Enemy(-100, 230));
-allEnemies.push(new Enemy(-400, 60));
-allEnemies.push(new Enemy(-250, 145));
-allEnemies.push(new Enemy(-350, 230));
-
-
 /*********************** Player ******************************/
 
 // Now write your own player class
@@ -67,7 +56,7 @@ allEnemies.push(new Enemy(-350, 230));
 var Player = function (speed) {
     this.sprite = 'images/char-boy.png';
     this.x = 202;
-    this.y = 315;
+    this.y = 400;
     this.width = 70;
     this.height = 75;
 };
@@ -95,6 +84,7 @@ Player.prototype.update = function () {
 
     if (this.y < 60) {
         this.reset();
+        console.log('You WON !!!!');
     }
 
     /* Invoking the collison detection function */
@@ -121,7 +111,7 @@ Player.prototype.handleInput = function (key) {
 Player.prototype.reset = function () {
 
     this.x = 202;
-    this.y = 315;
+    this.y = 400;
 };
 
 /* Creating the Collision Detection function for player */
@@ -140,15 +130,20 @@ Player.prototype.checkCollisionsBugs = function () {
     }
 };
 
+// Initializing the "allEnemies" array. It will consist of all the enemies objects.
+var allEnemies = [];
+
+allEnemies.push(new Enemy(-300, 60));
+allEnemies.push(new Enemy(-200, 145));
+allEnemies.push(new Enemy(-100, 230));
+allEnemies.push(new Enemy(-400, 60));
+allEnemies.push(new Enemy(-250, 145));
+allEnemies.push(new Enemy(-350, 230));
+allEnemies.push(new Enemy(-350, 315));
+
 /* creating the 'player' object */
 var player = new Player();
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-
-
+ 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function (e) {
