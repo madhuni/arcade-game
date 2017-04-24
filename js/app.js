@@ -9,12 +9,12 @@ function drawBox(x, y, width, height, color) {
 
 /*********************** Enemies *****************************/
 
-var Enemy = function (x, y, speed) {
+var Enemy = function (x, y) {
 
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.speed = this.randomSpeed(50, 250);
     this.width = 100;
     this.height = 67;
 };
@@ -38,12 +38,24 @@ Enemy.prototype.render = function () {
     drawBox(this.x, this.y + 77, 101, 67, "yellow");
 };
 
+// Creating the function which will return random speeds for the enemy object
+
+Enemy.prototype.randomSpeed = function (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+
 // Initializing the "allEnemies" array. It will consist of all the enemies objects.
 var allEnemies = [];
 
-allEnemies.push(new Enemy(-300, 60, 200));
-allEnemies.push(new Enemy(-200, 145, 100));
-allEnemies.push(new Enemy(-100, 230, 50));
+allEnemies.push(new Enemy(-300, 60));
+allEnemies.push(new Enemy(-200, 145));
+allEnemies.push(new Enemy(-100, 230));
+allEnemies.push(new Enemy(-400, 60));
+allEnemies.push(new Enemy(-250, 145));
+allEnemies.push(new Enemy(-350, 230));
 
 
 /*********************** Player ******************************/
