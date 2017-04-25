@@ -7,6 +7,16 @@ body {
     font-weight: bold;
 }
 
+#hearts ul {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#hearts ul li {
+    display: inline;
+}
+
 canvas {
 /*    border: 1px solid red;*/
 }
