@@ -84,6 +84,7 @@ Player.prototype.update = function () {
     }
 
     if (this.y < 60) {
+        this.resetPosition();
         this.reset();
         alert('Congratulation !!! You Beat the Bugs !!!');
     }
@@ -109,10 +110,17 @@ Player.prototype.handleInput = function (key) {
     }
 };
 
-Player.prototype.reset = function () {
+// This function will reset the position of the player.
+Player.prototype.resetPosition = function () {
 
     this.x = 202;
     this.y = 400;
+};
+
+// This function will reset the life of the player
+Player.prototype.reset = function () {
+    this.life = 3;
+    document.getElementById('life').textContent = this.life;
 };
 
 /* Creating the Collision Detection function for player */
@@ -125,27 +133,28 @@ Player.prototype.checkCollisionsBugs = function () {
             this.x + this.width > enemy.x &&
             this.y < enemy.y + enemy.height &&
             this.height + this.y > enemy.y) {
-            // collision detected!
-            //console.log('Collision detected !!!');
             bool = true;
-            //console.log(bool);
-            this.lifeCounter(bool);
-            this.reset();
+            this.lifeCounter(bool); //counting the life when the collision occurs 
+            this.resetPosition(); //resetting the position of the player after collision
         }
     }
 };
 
+/*
+Implementing the function to count the life of the player. 
+Whenver the player will collide with the bug, the life of the player will reduce to one.
+When all lives will finish, then the game will restart.
+*/
 Player.prototype.lifeCounter = function (bool) {
     if (bool) {
+        
         this.life = this.life - 1;
-        /*console.log('Your life is reduced, remaining life : ' + this.life);*/
         document.getElementById('life').textContent = this.life;
 
         if (this.life === 0) {
             alert('Oops !!! Yo loose buddy....Click ok to restart the game.');
-            this.life = 3;
-            document.getElementById('life').textContent = this.life;
-            /* Game should restart here */
+            /* Restarting the Game here */
+            this.reset();
         }
     }
 };
@@ -164,6 +173,7 @@ allEnemies.push(new Enemy(-350, 315));
 /* creating the 'player' object */
 var player = new Player();
 
+// Displaying the life of the player on the HTML page
 document.getElementById('life').textContent = player.life;
 
 // This listens for key presses and sends the keys to your
