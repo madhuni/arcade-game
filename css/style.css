@@ -1,3 +1,12 @@
 body {
     text-align: center;
 }
+
+#lifeCounter {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+canvas {
+/*    border: 1px solid red;*/
+}
