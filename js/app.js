@@ -14,7 +14,7 @@ var Enemy = function (x, y) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.speed = this.randomSpeed(50, 250);
+    this.speed = this.randomSpeed(50, 10);
     this.width = 100;
     this.height = 67;
 };
@@ -59,6 +59,7 @@ var Player = function (speed) {
     this.y = 400;
     this.width = 70;
     this.height = 75;
+    this.life = 3;
 };
 
 Player.prototype.render = function () {
@@ -84,7 +85,7 @@ Player.prototype.update = function () {
 
     if (this.y < 60) {
         this.reset();
-        console.log('You WON !!!!');
+        alert('Congratulation !!! You Beat the Bugs !!!');
     }
 
     /* Invoking the collison detection function */
@@ -119,13 +120,32 @@ Player.prototype.checkCollisionsBugs = function () {
 
     for (var i = 0; i < allEnemies.length; i++) {
         var enemy = allEnemies[i];
+        var bool = false;
         if (this.x < enemy.x + enemy.width &&
             this.x + this.width > enemy.x &&
             this.y < enemy.y + enemy.height &&
             this.height + this.y > enemy.y) {
             // collision detected!
-            console.log('Collision detected !!!');
-            player.reset();
+            //console.log('Collision detected !!!');
+            bool = true;
+            //console.log(bool);
+            this.lifeCounter(bool);
+            this.reset();
+        }
+    }
+};
+
+Player.prototype.lifeCounter = function (bool) {
+    if (bool) {
+        this.life = this.life - 1;
+        /*console.log('Your life is reduced, remaining life : ' + this.life);*/
+        document.getElementById('life').textContent = this.life;
+
+        if (this.life === 0) {
+            alert('Oops !!! Yo loose buddy....Click ok to restart the game.');
+            this.life = 3;
+            document.getElementById('life').textContent = this.life;
+            /* Game should restart here */
         }
     }
 };
@@ -134,16 +154,18 @@ Player.prototype.checkCollisionsBugs = function () {
 var allEnemies = [];
 
 allEnemies.push(new Enemy(-300, 60));
-allEnemies.push(new Enemy(-200, 145));
+//allEnemies.push(new Enemy(-200, 145));
 allEnemies.push(new Enemy(-100, 230));
-allEnemies.push(new Enemy(-400, 60));
+//allEnemies.push(new Enemy(-400, 60));
 allEnemies.push(new Enemy(-250, 145));
-allEnemies.push(new Enemy(-350, 230));
+//allEnemies.push(new Enemy(-350, 230));
 allEnemies.push(new Enemy(-350, 315));
 
 /* creating the 'player' object */
 var player = new Player();
- 
+
+document.getElementById('life').textContent = player.life;
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function (e) {
