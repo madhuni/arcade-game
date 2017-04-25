@@ -60,6 +60,15 @@ var Player = function (speed) {
     this.width = 70;
     this.height = 75;
     this.life = 3;
+    this.lifeArray = ["images/Heart.png", "images/Heart.png", "images/Heart.png"];
+};
+
+// This function will display the life of player as heart on the game board
+Player.prototype.displayLife = function () {
+    for (var i = 0; i < this.lifeArray.length; i++) {
+        var formattedLifeHeart = HTMLlifeHeart.replace('%data%', this.lifeArray[i]);
+        $("#heartList:last").append(formattedLifeHeart);
+    }
 };
 
 Player.prototype.render = function () {
@@ -147,7 +156,7 @@ When all lives will finish, then the game will restart.
 */
 Player.prototype.lifeCounter = function (bool) {
     if (bool) {
-        
+
         this.life = this.life - 1;
         document.getElementById('life').textContent = this.life;
 
@@ -175,6 +184,7 @@ var player = new Player();
 
 // Displaying the life of the player on the HTML page
 document.getElementById('life').textContent = player.life;
+player.displayLife();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
