@@ -15,7 +15,7 @@ var Enemy = function (x, y) {
     this.x = x;
     this.y = y;
     this.speed = this.randomSpeed(50, 10);
-    this.width = 100;
+    this.width = 80;
     this.height = 67;
 };
 
@@ -57,8 +57,8 @@ var Player = function (speed) {
     this.sprite = 'images/char-boy.png';
     this.x = 202;
     this.y = 400;
-    this.width = 70;
-    this.height = 75;
+    this.width = 50;
+    this.height = 50;
     this.life = 3;
     this.lifeArray = ["images/Heart.png", "images/Heart.png", "images/Heart.png"];
 };
@@ -73,7 +73,7 @@ Player.prototype.displayLife = function () {
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    drawBox(this.x + 17, this.y + 63, 70, 75, "blue");
+    drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
 };
 
 Player.prototype.update = function () {
