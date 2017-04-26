@@ -71,6 +71,12 @@ Player.prototype.displayLife = function () {
     }
 };
 
+// This function will reduce the life hearts and will display the reduced life on the game board
+Player.prototype.lifeReducer = function () {
+    var lastChild = $("ul li:last-child");
+    $(lastChild).remove();
+};
+
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
@@ -130,6 +136,13 @@ Player.prototype.resetPosition = function () {
 Player.prototype.reset = function () {
     this.life = 3;
     document.getElementById('life').textContent = this.life;
+    
+    // adding the life hearts again into the array
+    for (var i = 0; i < this.life; i++) {
+        this.lifeArray.push("images/Heart.png");
+    }
+    // then displaying the all lives after the game reset
+    this.displayLife();
 };
 
 /* Creating the Collision Detection function for player */
@@ -159,6 +172,8 @@ Player.prototype.lifeCounter = function (bool) {
 
         this.life = this.life - 1;
         document.getElementById('life').textContent = this.life;
+        this.lifeArray.pop(); // reducing the life array by one life
+        this.lifeReducer(); // displaying the reduced life on the game board
 
         if (this.life === 0) {
             alert('Oops !!! Yo loose buddy....Click ok to restart the game.');
