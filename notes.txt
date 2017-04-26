@@ -5,3 +5,31 @@ y increment will be of 85.
 
 --> for the 2nd row of the game board the y increment should be 60px
 --> for the 1st row of the game board the y increment should be -20px
+
+
+/***** Appointement Notes *****/
+
+// Link to understand the collision detection
+https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+
+// Live example
+http://jsfiddle.net/knam8/
+
+https://fend.slack.com/files/karol/F52KYUYRX/pasted_image_at_2017_04_23_07_59_pm.png
+
+*drawBox collision detection bounding boxes*
+https://discussions.udacity.com/t/how-to-pause-the-game/190398/6 
+
+*Collision Detection based on bounding boxes/ rectangles*
+https://discussions.udacity.com/t/struggling-with-collision-detection-in-the-classic-arcade-game-clone/227763/13 (edited)
+
+*A Quick Guide to the Udacity Discussion Forum*
+https://discussions.udacity.com/t/a-quick-guide-to-the-udacity-discussion-forum/175925 (edited)
+
+https://discussions.udacity.com/c/nd001-classic-arcade-game-clone/classic-arcade-game-clone-project (edited)
+
+// https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+Enemy.prototype.checkCollision = function() {
+    console.log("checkCollision");
+};
+
