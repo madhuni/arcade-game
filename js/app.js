@@ -51,6 +51,7 @@ var Player = function (speed) {
     this.height = 50;
     this.life = 3;
     this.lifeArray = ["images/Heart.png", "images/Heart.png", "images/Heart.png"];
+    this.winGame = false;
 };
 
 /***************************** Life Display and Life Reducer Functions ***************************/
@@ -89,9 +90,10 @@ Player.prototype.update = function () {
     }
 
     if (this.y < 60) {
+        this.winGame = true;
         this.resetPosition(); // resetting the position of the player
-        this.resetGame(false); // resetting the game
-        alert('Congratulation !!! You Beat the Bugs !!!');
+        // this.resetGame(false); // resetting the game
+        // alert('Congratulation !!! You Beat the Bugs !!!');
     }
 
     /* Invoking the collison detection function */
@@ -214,7 +216,8 @@ var gameover = Object.create(Gameover);
 
 /*************************** Winning Game *****************************/
 
-Player.prototype.resetGame = function (bool) {
+// temporary Win Game function
+/*Player.prototype.resetGame = function (bool) {
     if (bool) {
         allLife.push(life1);
         allLife.push(life2);
@@ -230,7 +233,26 @@ Player.prototype.resetGame = function (bool) {
             allLife.push(life3);
         }
     }
+};*/
+
+var Wingame = {
+    x: 0,
+    y: 0,
+    render: function () {
+        if (player.winGame) {
+            ctx.fillStyle = "#1b1a1a";
+            ctx.fillRect(this.x, this.y, 505, 606);
+            ctx.font = "50px Comic Sans MS";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("Congratulation !!!", 505 / 2, 606 / 2);
+            ctx.font = "20px Comic Sans MS";
+            ctx.fillText("You beat the bugs !!! Press spacebar to play again", 505 / 2, 350);
+        }
+    }
 };
+
+var wingame = Object.create(Wingame);
 
 /*************************** Event Listener ****************************/
 
