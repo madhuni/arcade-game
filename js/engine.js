@@ -160,6 +160,8 @@ var Engine = (function (global) {
         allLife.forEach(function (life) {
             life.render();
         });
+
+        gameover.render();
     }
 
     /* This function does nothing but it could have been a good place to
