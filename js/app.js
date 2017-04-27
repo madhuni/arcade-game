@@ -1,11 +1,11 @@
 /* implementing function to draw the boxes over the objects in game board */
-function drawBox(x, y, width, height, color) {
+/*function drawBox(x, y, width, height, color) {
     ctx.beginPath();
     ctx.rect(x, y, width, height);
     ctx.lineWidth = 2;
     ctx.strokeStyle = color;
     ctx.stroke();
-};
+};*/
 
 /*********************** Enemies *****************************/
 
@@ -30,7 +30,7 @@ Enemy.prototype.update = function (dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    drawBox(this.x, this.y + 77, 101, 67, "yellow");
+    // drawBox(this.x, this.y + 77, 101, 67, "yellow");
 };
 
 // Creating the function which will return random speeds for the enemy object
@@ -55,22 +55,22 @@ var Player = function (speed) {
 
 /***************************** Life Display and Life Reducer Functions ***************************/
 
-Player.prototype.displayLife = function () {
+/*Player.prototype.displayLife = function () {
     for (var i = 0; i < this.lifeArray.length; i++) {
         var formattedLifeHeart = HTMLlifeHeart.replace('%data%', this.lifeArray[i]);
         $("#heartList:last").append(formattedLifeHeart);
     }
 };
-
+*/
 // This function will reduce the life hearts and will display the reduced life on the game board
-Player.prototype.lifeReducer = function () {
+/*Player.prototype.lifeReducer = function () {
     var lastChild = $("ul li:last-child");
     $(lastChild).remove();
-};
+};*/
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
+    // drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
 };
 
 Player.prototype.update = function () {
@@ -146,17 +146,17 @@ var allEnemies = [];
 allEnemies.push(new Enemy(-300, 60));
 allEnemies.push(new Enemy(-200, 145));
 allEnemies.push(new Enemy(-100, 230));
-// allEnemies.push(new Enemy(-400, 60));
-// allEnemies.push(new Enemy(-250, 145));
-// allEnemies.push(new Enemy(-350, 230));
+allEnemies.push(new Enemy(-400, 60));
+allEnemies.push(new Enemy(-250, 145));
+allEnemies.push(new Enemy(-350, 230));
 allEnemies.push(new Enemy(-350, 315));
 
 // creating the 'player' object 
 var player = new Player();
 
 // Displaying the life of the player on the HTML page
-document.getElementById('life').textContent = player.life;
-player.displayLife();
+// document.getElementById('life').textContent = player.life;
+// player.displayLife();
 
 /*************************** Life Counter *******************/
 
@@ -194,14 +194,14 @@ Player.prototype.gameOver = function () {
 
 Player.prototype.resetGame = function (bool) {
     if (bool) {
+        location.reload();
         allLife.push(life1);
         allLife.push(life2);
         allLife.push(life3);
     } else {
+        location.reload();
         var count = allLife.length;
         var addCount = 3 - count;
-        console.log("remainingLife: " + count);
-        console.log("life to add: " + addCount);
 
         if (addCount === 1) {
             allLife.push(life3);
