@@ -10,11 +10,10 @@ function drawBox(x, y, width, height, color) {
 /*********************** Enemies *****************************/
 
 var Enemy = function (x, y) {
-
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.speed = this.randomSpeed(50, 10);
+    this.speed = this.randomSpeed(50, 200);
     this.width = 80;
     this.height = 67;
 };
@@ -22,14 +21,10 @@ var Enemy = function (x, y) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function (dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     this.x = this.x + this.speed * dt;
     if (this.x > 505) {
         this.x = 0;
     }
-    /*this.checkCollisionsBugs();*/
 };
 
 // Draw the enemy on the screen, required method for game
@@ -39,7 +34,6 @@ Enemy.prototype.render = function () {
 };
 
 // Creating the function which will return random speeds for the enemy object
-
 Enemy.prototype.randomSpeed = function (min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -48,10 +42,6 @@ Enemy.prototype.randomSpeed = function (min, max) {
 };
 
 /*********************** Player ******************************/
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
 var Player = function (speed) {
     this.sprite = 'images/char-boy.png';
@@ -63,7 +53,8 @@ var Player = function (speed) {
     this.lifeArray = ["images/Heart.png", "images/Heart.png", "images/Heart.png"];
 };
 
-// This function will display the life of player as heart on the game board
+/***************************** Life Display and Life Reducer Functions ***************************/
+
 Player.prototype.displayLife = function () {
     for (var i = 0; i < this.lifeArray.length; i++) {
         var formattedLifeHeart = HTMLlifeHeart.replace('%data%', this.lifeArray[i]);
@@ -85,7 +76,6 @@ Player.prototype.render = function () {
 Player.prototype.update = function () {
 
     /* Cheking player should not move out screen */
-
     if (this.x > 404) {
         this.x = 404;
     }
@@ -99,16 +89,16 @@ Player.prototype.update = function () {
     }
 
     if (this.y < 60) {
-        this.resetPosition();
-        this.reset();
+        this.resetPosition(); // resetting the position of the player
+        this.resetGame(false); // resetting the game
         alert('Congratulation !!! You Beat the Bugs !!!');
     }
 
     /* Invoking the collison detection function */
-
     this.checkCollisionsBugs();
 };
 
+// Event Listner function for player
 Player.prototype.handleInput = function (key) {
 
     if (key === 'left') {
@@ -127,82 +117,103 @@ Player.prototype.handleInput = function (key) {
 
 // This function will reset the position of the player.
 Player.prototype.resetPosition = function () {
-
     this.x = 202;
     this.y = 400;
 };
 
-// This function will reset the life of the player
-Player.prototype.reset = function () {
-    this.life = 3;
-    document.getElementById('life').textContent = this.life;
-    
-    // adding the life hearts again into the array
-    for (var i = 0; i < this.life; i++) {
-        this.lifeArray.push("images/Heart.png");
-    }
-    // then displaying the all lives after the game reset
-    this.displayLife();
-};
-
 /* Creating the Collision Detection function for player */
 Player.prototype.checkCollisionsBugs = function () {
-
     for (var i = 0; i < allEnemies.length; i++) {
         var enemy = allEnemies[i];
-        var bool = false;
+        // var bool = false;
         if (this.x < enemy.x + enemy.width &&
             this.x + this.width > enemy.x &&
             this.y < enemy.y + enemy.height &&
             this.height + this.y > enemy.y) {
-            bool = true;
-            this.lifeCounter(bool); //counting the life when the collision occurs 
+
             this.resetPosition(); //resetting the position of the player after collision
+            ctx.clearRect(0, 0, 120, 60); // reducing the life hearts on game board
+            allLife.splice(allLife.length - 1, 1);
+            this.gameOver();
         }
     }
 };
 
-/*
-Implementing the function to count the life of the player. 
-Whenver the player will collide with the bug, the life of the player will reduce to one.
-When all lives will finish, then the game will restart.
-*/
-Player.prototype.lifeCounter = function (bool) {
-    if (bool) {
+/************************** Enemy and Player initialization **************************/
 
-        this.life = this.life - 1;
-        document.getElementById('life').textContent = this.life;
-        this.lifeArray.pop(); // reducing the life array by one life
-        this.lifeReducer(); // displaying the reduced life on the game board
-
-        if (this.life === 0) {
-            alert('Oops !!! Yo loose buddy....Click ok to restart the game.');
-            /* Restarting the Game here */
-            this.reset();
-        }
-    }
-};
-
-// Initializing the "allEnemies" array. It will consist of all the enemies objects.
 var allEnemies = [];
 
 allEnemies.push(new Enemy(-300, 60));
-//allEnemies.push(new Enemy(-200, 145));
+allEnemies.push(new Enemy(-200, 145));
 allEnemies.push(new Enemy(-100, 230));
-//allEnemies.push(new Enemy(-400, 60));
-allEnemies.push(new Enemy(-250, 145));
-//allEnemies.push(new Enemy(-350, 230));
+// allEnemies.push(new Enemy(-400, 60));
+// allEnemies.push(new Enemy(-250, 145));
+// allEnemies.push(new Enemy(-350, 230));
 allEnemies.push(new Enemy(-350, 315));
 
-/* creating the 'player' object */
+// creating the 'player' object 
 var player = new Player();
 
 // Displaying the life of the player on the HTML page
 document.getElementById('life').textContent = player.life;
 player.displayLife();
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+/*************************** Life Counter *******************/
+
+var Life = {
+    x: 0,
+    y: 0,
+    sprite: "images/Heart.png",
+    render: function () {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 40, 60);
+    }
+};
+
+var life1 = Object.create(Life);
+life1.x = 0;
+
+var life2 = Object.create(Life);
+life2.x = 40;
+
+var life3 = Object.create(Life);
+life3.x = 80;
+
+var allLife = [life1, life2, life3];
+
+/*************************** Game Over *********************************/
+
+Player.prototype.gameOver = function () {
+    var bool = true;
+    if (allLife.length === 0) {
+        alert("YO LOSE !!!!");
+        this.resetGame(bool);
+    }
+};
+
+/*************************** Winning Game *****************************/
+
+Player.prototype.resetGame = function (bool) {
+    if (bool) {
+        allLife.push(life1);
+        allLife.push(life2);
+        allLife.push(life3);
+    } else {
+        var count = allLife.length;
+        var addCount = 3 - count;
+        console.log("remainingLife: " + count);
+        console.log("life to add: " + addCount);
+
+        if (addCount === 1) {
+            allLife.push(life3);
+        } else if (addCount === 2) {
+            allLife.push(life2);
+            allLife.push(life3);
+        }
+    }
+};
+
+/*************************** Event Listener ****************************/
+
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
         37: 'left',
