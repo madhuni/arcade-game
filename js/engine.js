@@ -162,6 +162,8 @@ var Engine = (function (global) {
         });
 
         gameover.render();
+
+        wingame.render();
     }
 
     /* This function does nothing but it could have been a good place to
