@@ -113,6 +113,9 @@ Player.prototype.handleInput = function (key) {
     if (key === 'down') {
         this.y = this.y + 85;
     }
+    if (key === 'restart') {
+        location.reload();
+    }
 };
 
 // This function will reset the position of the player.
@@ -134,7 +137,7 @@ Player.prototype.checkCollisionsBugs = function () {
             this.resetPosition(); //resetting the position of the player after collision
             ctx.clearRect(0, 0, 120, 60); // reducing the life hearts on game board
             allLife.splice(allLife.length - 1, 1);
-            this.gameOver();
+            // this.gameOver(); // call this function when temporary gameOver functionality is needed
         }
     }
 };
@@ -181,25 +184,42 @@ life3.x = 80;
 var allLife = [life1, life2, life3];
 
 /*************************** Game Over *********************************/
-
-Player.prototype.gameOver = function () {
+// temporary Game Over functionality
+/*Player.prototype.gameOver = function () {
     var bool = true;
     if (allLife.length === 0) {
         alert("YO LOSE !!!!");
         this.resetGame(bool);
     }
+};*/
+
+var Gameover = {
+    x: 0,
+    y: 0,
+    render: function () {
+        if (allLife.length === 0) {
+            ctx.fillStyle = "#1b1a1a";
+            ctx.fillRect(this.x, this.y, 505, 606);
+            ctx.font = "50px Comic Sans MS";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("Game Over !!!", 505 / 2, 606 / 2);
+            ctx.font = "20px Comic Sans MS";
+            ctx.fillText("Hit Space Bar to restart the Game", 505 / 2, 350);
+        }
+    }
 };
+
+var gameover = Object.create(Gameover);
 
 /*************************** Winning Game *****************************/
 
 Player.prototype.resetGame = function (bool) {
     if (bool) {
-        location.reload();
         allLife.push(life1);
         allLife.push(life2);
         allLife.push(life3);
     } else {
-        location.reload();
         var count = allLife.length;
         var addCount = 3 - count;
 
@@ -219,7 +239,8 @@ document.addEventListener('keyup', function (e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        32: 'restart'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
