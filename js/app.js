@@ -56,19 +56,6 @@ var Player = function (speed) {
 
 /***************************** Life Display and Life Reducer Functions ***************************/
 
-/*Player.prototype.displayLife = function () {
-    for (var i = 0; i < this.lifeArray.length; i++) {
-        var formattedLifeHeart = HTMLlifeHeart.replace('%data%', this.lifeArray[i]);
-        $("#heartList:last").append(formattedLifeHeart);
-    }
-};
-*/
-// This function will reduce the life hearts and will display the reduced life on the game board
-/*Player.prototype.lifeReducer = function () {
-    var lastChild = $("ul li:last-child");
-    $(lastChild).remove();
-};*/
-
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     // drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
@@ -159,10 +146,6 @@ allEnemies.push(new Enemy(-350, 315));
 // creating the 'player' object 
 var player = new Player();
 
-// Displaying the life of the player on the HTML page
-// document.getElementById('life').textContent = player.life;
-// player.displayLife();
-
 /*************************** Life Counter *******************/
 
 var Life = {
@@ -186,15 +169,6 @@ life3.x = 80;
 var allLife = [life1, life2, life3];
 
 /*************************** Game Over *********************************/
-// temporary Game Over functionality
-/*Player.prototype.gameOver = function () {
-    var bool = true;
-    if (allLife.length === 0) {
-        alert("YO LOSE !!!!");
-        this.resetGame(bool);
-    }
-};*/
-
 var Gameover = {
     x: 0,
     y: 0,
@@ -215,25 +189,6 @@ var Gameover = {
 var gameover = Object.create(Gameover);
 
 /*************************** Winning Game *****************************/
-
-// temporary Win Game function
-/*Player.prototype.resetGame = function (bool) {
-    if (bool) {
-        allLife.push(life1);
-        allLife.push(life2);
-        allLife.push(life3);
-    } else {
-        var count = allLife.length;
-        var addCount = 3 - count;
-
-        if (addCount === 1) {
-            allLife.push(life3);
-        } else if (addCount === 2) {
-            allLife.push(life2);
-            allLife.push(life3);
-        }
-    }
-};*/
 
 var Wingame = {
     x: 0,
