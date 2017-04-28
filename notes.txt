@@ -33,3 +33,59 @@ Enemy.prototype.checkCollision = function() {
     console.log("checkCollision");
 };
 
+
+
+//***** Requirements ******
+
+When the player wins the reset function should reset the lifes to its initial length
+
+
+//***** Used codes in the project which are the temporary solutions ******
+
+/*Player.prototype.displayLife = function () {
+    for (var i = 0; i < this.lifeArray.length; i++) {
+        var formattedLifeHeart = HTMLlifeHeart.replace('%data%', this.lifeArray[i]);
+        $("#heartList:last").append(formattedLifeHeart);
+    }
+};
+*/
+// This function will reduce the life hearts and will display the reduced life on the game board
+/*Player.prototype.lifeReducer = function () {
+    var lastChild = $("ul li:last-child");
+    $(lastChild).remove();
+};*/
+
+
+// Displaying the life of the player on the HTML page
+// document.getElementById('life').textContent = player.life;
+// player.displayLife();
+
+
+// temporary Game Over functionality
+/*Player.prototype.gameOver = function () {
+    var bool = true;
+    if (allLife.length === 0) {
+        alert("YO LOSE !!!!");
+        this.resetGame(bool);
+    }
+};*/
+
+
+// temporary Win Game function
+/*Player.prototype.resetGame = function (bool) {
+    if (bool) {
+        allLife.push(life1);
+        allLife.push(life2);
+        allLife.push(life3);
+    } else {
+        var count = allLife.length;
+        var addCount = 3 - count;
+
+        if (addCount === 1) {
+            allLife.push(life3);
+        } else if (addCount === 2) {
+            allLife.push(life2);
+            allLife.push(life3);
+        }
+    }
+};*/
