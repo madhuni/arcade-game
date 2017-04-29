@@ -121,6 +121,8 @@ Player.prototype.update = function () {
 // Event Listner function for player
 Player.prototype.handleInput = function (key) {
 
+    this.savePosition();    
+
     switch (key) {
     case 'left':
         this.x -= 101;
@@ -144,6 +146,17 @@ Player.prototype.handleInput = function (key) {
 Player.prototype.resetPosition = function () {
     this.x = 202;
     this.y = 400;
+};
+
+// Creating a function to check the pervious position of the player
+Player.prototype.savePosition = function() {
+    X = this.x;
+    Y = this.y
+};
+
+Player.prototype.previousPosition = function() {
+    this.x = X;
+    this.y = Y;
 };
 
 /* Creating the Collision Detection function for player */
@@ -171,7 +184,7 @@ Player.prototype.checkCollisionsRock = function () {
         this.y < rock.y + rock.height &&
         this.height + this.y > rock.y) {
 
-        this.resetPosition(); //resetting the position of the player after collision
+        this.previousPosition();
     }
 };
 
