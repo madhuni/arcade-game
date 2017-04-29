@@ -38,6 +38,9 @@ Enemy.prototype.checkCollision = function() {
 //***** Requirements ******
 
 When the player wins the reset function should reset the lifes to its initial length
+x, y should be random and should decide on run time
+Pause functionality needs to be added
+Timer needs to be added
 
 
 //***** Used codes in the project which are the temporary solutions ******
