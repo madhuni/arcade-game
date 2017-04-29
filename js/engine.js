@@ -164,6 +164,8 @@ var Engine = (function (global) {
         gameover.render();
 
         wingame.render();
+
+        rock.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -187,7 +189,8 @@ var Engine = (function (global) {
         'images/char-boy.png',
         'images/char-princess-girl.png',
         'images/char-pink-girl.png',
-        'images/Heart.png'
+        'images/Heart.png',
+        'images/Rock.png'
     ]);
     Resources.onReady(init);
 
