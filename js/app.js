@@ -13,7 +13,16 @@ var Enemy = function (x, y) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.speed = this.randomSpeed(50, 200);
+    this.speed = this.randomSpeed(150, 250);
+    this.width = 80;
+    this.height = 67;
+};
+
+var Enemy1 = function (x, y) {
+    this.sprite = 'images/enemy-bug-revert.png';
+    this.x = x;
+    this.y = y;
+    this.speed = this.randomSpeed(200, 250);
     this.width = 80;
     this.height = 67;
 };
@@ -23,7 +32,7 @@ var Enemy = function (x, y) {
 Enemy.prototype.update = function (dt) {
     this.x = this.x + this.speed * dt;
     if (this.x > 505) {
-        this.x = 0;
+        this.x = -100;
     }
 };
 
@@ -41,6 +50,27 @@ Enemy.prototype.randomSpeed = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
+// making enemy type 2
+Enemy1.prototype.update = function (dt) {
+    this.x = this.x - this.speed * dt;
+    if (this.x < -100) {
+        this.x = 600;
+    }
+};
+
+// Draw the enemy on the screen, required method for game
+Enemy1.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    // drawBox(this.x, this.y + 77, 101, 67, "yellow");
+};
+
+// Creating the function which will return random speeds for the enemy object
+Enemy1.prototype.randomSpeed = function (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    return Math.floor(Math.random() * (max - min)) + min;
+};
 /*********************** Player ******************************/
 
 var Player = function (speed) {
@@ -90,20 +120,22 @@ Player.prototype.update = function () {
 // Event Listner function for player
 Player.prototype.handleInput = function (key) {
 
-    if (key === 'left') {
-        this.x = this.x - 101;
-    }
-    if (key === 'right') {
-        this.x = this.x + 101;
-    }
-    if (key === 'up') {
-        this.y = this.y - 85;
-    }
-    if (key === 'down') {
-        this.y = this.y + 85;
-    }
-    if (key === 'restart') {
-        location.reload();
+    switch (key) {
+        case 'left': 
+            this.x -= 101;
+            break;
+        case 'right':
+            this.x += 101;
+            break;
+        case 'up':
+            this.y -= 85;
+            break;
+        case 'down':
+            this.y +=85;
+            break;
+        case 'restart':
+            location.reload();
+            break;
     }
 };
 
@@ -135,13 +167,13 @@ Player.prototype.checkCollisionsBugs = function () {
 
 var allEnemies = [];
 
-allEnemies.push(new Enemy(-300, 60));
-allEnemies.push(new Enemy(-200, 145));
-allEnemies.push(new Enemy(-100, 230));
+allEnemies.push(new Enemy(-5, 60));
+allEnemies.push(new Enemy(-5, 230));
 allEnemies.push(new Enemy(-400, 60));
-allEnemies.push(new Enemy(-250, 145));
 allEnemies.push(new Enemy(-350, 230));
 allEnemies.push(new Enemy(-350, 315));
+allEnemies.push(new Enemy1(300, 145));
+allEnemies.push(new Enemy1(100, 145));
 
 // creating the 'player' object 
 var player = new Player();
