@@ -116,12 +116,15 @@ Player.prototype.update = function () {
 
     // Checking the collision with Rock
     this.checkCollisionsRock();
+
+    // Checking the collision with Key
+    this.checkCollisionKey();
 };
 
 // Event Listner function for player
 Player.prototype.handleInput = function (key) {
 
-    this.savePosition();    
+    this.savePosition();
 
     switch (key) {
     case 'left':
@@ -149,12 +152,12 @@ Player.prototype.resetPosition = function () {
 };
 
 // Creating a function to check the pervious position of the player
-Player.prototype.savePosition = function() {
+Player.prototype.savePosition = function () {
     X = this.x;
     Y = this.y
 };
 
-Player.prototype.previousPosition = function() {
+Player.prototype.previousPosition = function () {
     this.x = X;
     this.y = Y;
 };
@@ -188,6 +191,23 @@ Player.prototype.checkCollisionsRock = function () {
     }
 };
 
+// Player colliding with Key
+Player.prototype.checkCollisionKey = function () {
+    for (var i = 0; i < key.length; i++) {
+        var keyValue = key[i];
+
+        if (this.x < keyValue.x + keyValue.width &&
+            this.x + this.width > keyValue.x &&
+            this.y < keyValue.y + keyValue.height &&
+            this.height + this.y > keyValue.y) {
+
+            console.log("Player collide with the key");
+            // Removing the key when the player collide with the key
+            key.splice(key.length - 1, 1);
+        }
+    }
+};
+
 /************************** Items and Obstacles **************************************/
 var Rock = {
     sprite: 'images/Rock.png',
@@ -205,6 +225,20 @@ var rock = Object.create(Rock);
 rock.x = 101;
 rock.y = 400;
 
+var Key = {
+    sprite: 'images/Key.png',
+    x: 0,
+    y: 410,
+    width: 50,
+    height: 50,
+    render: function () {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        drawBox(this.x + 31, this.y + 58, 42, 83, "black");
+    }
+};
+
+var key = [Object.create(Key)];
+
 /************************** Enemy and Player initialization **************************/
 
 var allEnemies = [];
@@ -213,7 +247,7 @@ allEnemies.push(new Enemy(-5, 60));
 allEnemies.push(new Enemy(-5, 230));
 allEnemies.push(new Enemy(-400, 60));
 allEnemies.push(new Enemy(-350, 230));
-allEnemies.push(new Enemy(-350, 315));
+// allEnemies.push(new Enemy(-350, 315));
 allEnemies.push(new Enemy1(300, 145));
 allEnemies.push(new Enemy1(100, 145));
 
