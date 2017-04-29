@@ -86,7 +86,7 @@ var Player = function (speed) {
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
+    // drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
 };
 
 Player.prototype.update = function () {
@@ -206,7 +206,7 @@ Player.prototype.checkCollisionKey = function () {
             this.y < keyValue.y + keyValue.height &&
             this.height + this.y > keyValue.y) {
 
-            console.log("Player collide with the key");
+            // console.log("Player collide with the key");
             // Removing the key when the player collide with the key
             key.splice(key.length - 1, 1);
         }
@@ -222,7 +222,7 @@ var Rock = {
     height: 50,
     render: function () {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        drawBox(this.x + 7, this.y + 67, 87, 87, "red");
+        // drawBox(this.x + 7, this.y + 67, 87, 87, "red");
     }
 };
 
@@ -238,7 +238,7 @@ var Key = {
     height: 50,
     render: function () {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        drawBox(this.x + 31, this.y + 58, 42, 83, "black");
+        // drawBox(this.x + 31, this.y + 58, 42, 83, "black");
     }
 };
 
@@ -252,7 +252,7 @@ allEnemies.push(new Enemy(-5, 60));
 allEnemies.push(new Enemy(-5, 230));
 allEnemies.push(new Enemy(-400, 60));
 allEnemies.push(new Enemy(-350, 230));
-// allEnemies.push(new Enemy(-350, 315));
+allEnemies.push(new Enemy(-350, 315));
 allEnemies.push(new Enemy1(300, 145));
 allEnemies.push(new Enemy1(100, 145));
 
