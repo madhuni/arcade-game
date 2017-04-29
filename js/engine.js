@@ -157,6 +157,7 @@ var Engine = (function (global) {
         /* calling the render method of the player object*/
         player.render();
 
+        rock.render();
         allLife.forEach(function (life) {
             life.render();
         });
@@ -164,8 +165,6 @@ var Engine = (function (global) {
         gameover.render();
 
         wingame.render();
-
-        rock.render();
     }
 
     /* This function does nothing but it could have been a good place to
