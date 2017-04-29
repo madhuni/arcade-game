@@ -1,11 +1,11 @@
 /* implementing function to draw the boxes over the objects in game board */
-/*function drawBox(x, y, width, height, color) {
+function drawBox(x, y, width, height, color) {
     ctx.beginPath();
     ctx.rect(x, y, width, height);
     ctx.lineWidth = 2;
     ctx.strokeStyle = color;
     ctx.stroke();
-};*/
+};
 
 /*********************** Enemies *****************************/
 
@@ -84,11 +84,9 @@ var Player = function (speed) {
     this.winGame = false;
 };
 
-/***************************** Life Display and Life Reducer Functions ***************************/
-
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    // drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
+    drawBox(this.x + 17, this.y + 63, 66, 75, "blue");
 };
 
 Player.prototype.update = function () {
@@ -115,27 +113,30 @@ Player.prototype.update = function () {
 
     /* Invoking the collison detection function */
     this.checkCollisionsBugs();
+
+    // Checking the collision with Rock
+    this.checkCollisionsRock();
 };
 
 // Event Listner function for player
 Player.prototype.handleInput = function (key) {
 
     switch (key) {
-        case 'left': 
-            this.x -= 101;
-            break;
-        case 'right':
-            this.x += 101;
-            break;
-        case 'up':
-            this.y -= 85;
-            break;
-        case 'down':
-            this.y +=85;
-            break;
-        case 'restart':
-            location.reload();
-            break;
+    case 'left':
+        this.x -= 101;
+        break;
+    case 'right':
+        this.x += 101;
+        break;
+    case 'up':
+        this.y -= 85;
+        break;
+    case 'down':
+        this.y += 85;
+        break;
+    case 'restart':
+        location.reload();
+        break;
     }
 };
 
@@ -162,6 +163,34 @@ Player.prototype.checkCollisionsBugs = function () {
         }
     }
 };
+
+// Player colliding with Rock
+Player.prototype.checkCollisionsRock = function () {
+    if (this.x < rock.x + rock.width &&
+        this.x + this.width > rock.x &&
+        this.y < rock.y + rock.height &&
+        this.height + this.y > rock.y) {
+
+        this.resetPosition(); //resetting the position of the player after collision
+    }
+};
+
+/************************** Items and Obstacles **************************************/
+var Rock = {
+    sprite: 'images/Rock.png',
+    x: 0,
+    y: 0,
+    width: 50,
+    height: 50,
+    render: function () {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        drawBox(this.x + 7, this.y + 67, 87, 87, "red");
+    }
+};
+
+var rock = Object.create(Rock);
+rock.x = 101;
+rock.y = 400;
 
 /************************** Enemy and Player initialization **************************/
 
