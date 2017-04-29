@@ -104,9 +104,14 @@ Player.prototype.update = function () {
         this.y = 400;
     }
 
-    if (this.y < 60) {
-        this.winGame = true;
-        this.resetPosition(); // resetting the position of the player
+    if (this.y < 60 ) {
+        if (key.length === 0) {
+            this.winGame = true;
+            this.resetPosition(); // resetting the position of the player
+        }
+        
+        this.previousPosition();
+        
         // this.resetGame(false); // resetting the game
         // alert('Congratulation !!! You Beat the Bugs !!!');
     }
@@ -287,7 +292,7 @@ var Gameover = {
             ctx.font = "50px Comic Sans MS";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
-            ctx.fillText("Game Over !!!", 505 / 2, 606 / 2);
+            ctx.fillText( "Game Over !!!", 505 / 2, 606 / 2);
             ctx.font = "20px Comic Sans MS";
             ctx.fillText("Hit Space Bar to restart the Game", 505 / 2, 350);
         }
