@@ -180,6 +180,11 @@ Player.prototype.checkCollisionsBugs = function () {
             this.resetPosition(); //resetting the position of the player after collision
             ctx.clearRect(0, 0, 120, 60); // reducing the life hearts on game board
             allLife.splice(allLife.length - 1, 1);
+            
+            // palcing the key again if life is reduced
+            if (key.length === 0) {
+                key.push(Object.create(Key));
+            }
             // this.gameOver(); // call this function when temporary gameOver functionality is needed
         }
     }
